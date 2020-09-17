@@ -1,17 +1,41 @@
 import { IUser } from "../../application/abstracts/user_repository_interface";
 
-class User {
+class User implements IUser {
+  readonly user_id: string;
+  readonly name: string;
+  readonly email: string;
+  readonly password: string;
+
   //constructor
-  constructor(public userInput: IUser) {}
+  constructor({
+    user_id = "",
+    name,
+    email,
+    password,
+  }: {
+    user_id?: string;
+    name: string;
+    email: string;
+    password: string;
+  }) {
+    this.user_id = user_id;
+    this.name = name;
+    this.email = email;
+    this.password = password;
+  }
 
   //Serialize data
   hydrate() {
-    const { user_id, name, email } = this.userInput;
+    const { user_id, name, email } = this;
     return {
       userId: user_id,
       name: name,
       email: email,
     };
+  }
+
+  validate(): Promise<void> {
+    return Promise.reject("NOT IMPLEMENTED");
   }
 
   //validate

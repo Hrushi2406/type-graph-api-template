@@ -14,4 +14,6 @@ export interface IUser {
   name: string;
   email: string;
   password: string;
+  validate: () => Promise<void>;
+  hydrate: () => any;
 }
