@@ -5,6 +5,12 @@ import { IUserRepository } from "src/application/abstracts/user_repository_inter
 
 export class LoginUseCase {
   //constructor
+  /**
+   *
+   * @param userRepository
+   * @param encrypter
+   * @param accessTokenManager
+   */
   constructor(
     public userRepository: IUserRepository,
     public encrypter: IEncrypter,
@@ -12,7 +18,7 @@ export class LoginUseCase {
   ) {}
 
   //Executable default functions
-  async call(email: string, password: string): Promise<String> {
+  async execute(email: string, password: string): Promise<string> {
     //extracting fron this
     const { userRepository, encrypter, accessTokenManager } = this;
 

@@ -1,5 +1,6 @@
 import { IAccessTokenManager } from "src/application/abstracts/access_token_manager_interface";
 import { IEncrypter } from "src/application/abstracts/encrypter_interface";
+import { IIDGenerator } from "src/application/abstracts/id_generator_interface";
 import {
   IUser,
   IUserRepository,
@@ -8,17 +9,25 @@ import User from "src/domain/entities/user";
 
 export class RegisterUseCase {
   //Default constructor
+  /**
+   *
+   * @param userRepository
+   * @param idGenerator
+   * @param encrypter
+   * @param accessTokenManager
+   */
   constructor(
-    public accessTokenManager: IAccessTokenManager,
     public userRepository: IUserRepository,
-    public encrypter: IEncrypter
+    public idGenerator: IIDGenerator,
+    public encrypter: IEncrypter,
+    public accessTokenManager: IAccessTokenManager
   ) {}
 
   //Default executable function
 
-  async call(args: any): Promise<string> {
+  async execute(args: any): Promise<string> {
     //Extracting values
-    const { accessTokenManager, userRepository, encrypter } = this;
+    const { accessTokenManager, userRepository, encrypter, idGenerator } = this;
 
     //Extract from args
     const {
@@ -40,7 +49,7 @@ export class RegisterUseCase {
     user.password = await encrypter.encrypt(user.password);
 
     //Genereate a uniuque ID
-    //   user.user_id = await
+    user.user_id = idGenerator.generate();
 
     //Add To Database
     await userRepository.registerUser(user);
