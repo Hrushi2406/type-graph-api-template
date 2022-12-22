@@ -25,7 +25,7 @@
     "apollo-server": "^2.16.0",
     "bcrypt": "^5.0.0",
     "graphql": "^15.3.0",
-    "jsonwebtoken": "^8.5.1",
+    "jsonwebtoken": "^9.0.0",
     "pg": "^8.3.0",
     "uuid": "^8.2.0"
   }
